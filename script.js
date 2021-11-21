@@ -1,9 +1,3 @@
-/**
- * 
- * 
- */
-
-
 const quizContainerEl = document.querySelector('#quiz-container');
 const highscoreEl = document.querySelector('#highscore');
 const questionContainerEl = document.querySelector('#question');
@@ -242,3 +236,16 @@ answerButtonsEl.addEventListener('click', e => {
 		console.log(`WRONG`)
     }
 });
+
+
+/**
+ * to do list!
+ * 
+ * make the shuffle better, correct answer appear at same spot plenty of times
+ * 
+ * fix the answer button so that you can answer correct and move on to next question
+ * 
+ * fix the result, so that it updates automatically and make it toogleable
+ * 
+ * fix the reset, so it resets the game to 0 and shows a new question
+ */
