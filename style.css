@@ -10,6 +10,10 @@ body {
     background-color: black;
 }
 
+.hide {
+    display: none;
+}
+
 .container {
     margin: auto;
     width: 80%;
@@ -31,45 +35,45 @@ body {
 }
 
 .quiz-image img {
-    width: 100%;
+    width: 50%;
 }
 
-.button-container {
+.answer-container {
     display: flex;
     flex-direction: column;
 }
 
-.button-container button {
-    margin: 10px;
-    border-radius: 20px;
+.answer-container button {
+    margin: 8px;
+    border-radius: 15px;
     cursor: pointer;
     background-color: lightblue;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border: 3px solid black;
 }
 
-.button-container button:hover {
+.answer-container button:hover {
     transition: 0.3s;
     border-color: blue;
 }
 
-.start-container {
+.controls {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
-    margin-top: 30px;
 }
 
-.start-container button {
+.controls button {
     width: 100px;
-    border-radius: 20px;
+    padding: 5px;
+    border-radius: 15px;
     cursor: pointer;
     background-color: lightblue;
     font-size: 1.3rem;
     border: 3px solid black;
 }
 
-.start-container button:hover {
+.controls button:hover {
     transition: 0.5s;
     border-color: red;
 }
@@ -82,21 +86,21 @@ body {
         padding: 20px;
     }
 
-    .button-container {
+    .answer-container {
         margin: 30px;
         display: grid;
         grid-template-columns: repeat(2, 50%);
     }
 
     .quiz-image img {
-        width: 80%;
+        width: 50%;
     }
 
-    .button-container {
+    .answer-container {
         margin: 30px;
     }
 
-    .button-container button{
+    .answer-container button{
         border-radius: 20px;
         padding: 5px;
     }
@@ -111,6 +115,9 @@ body {
 /* Media query lg */
 @media only screen and (min-width: 1100px) {
     .container {
+        width: 50%;
+    }
+    .quiz-image img {
         width: 60%;
     }
 }
