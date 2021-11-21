@@ -1,3 +1,4 @@
+/* General */
 * {
     font-family: 'Source Sans Pro', sans-serif;
 }
@@ -22,6 +23,7 @@ body {
     border-radius: 10px;
 }
 
+/* Quiz section */
 .quiz-title {
     display: flex;
     justify-content: center;
@@ -38,6 +40,7 @@ body {
     width: 50%;
 }
 
+/* Buttons */
 .answer-container {
     display: flex;
     flex-direction: column;
