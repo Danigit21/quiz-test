@@ -1,11 +1,28 @@
+/**
+ * Quiz Game's to do list!
+ * 
+ * fix the show result in the end
+ * 
+ * fix the design
+ * 
+ * dont show the same picture/quiz more than once
+ * 
+ * 
+ */
+
+
+// dom targets
 const quizContainerEl = document.querySelector('#quiz-container');
 const highscoreEl = document.querySelector('#highscore');
 const questionContainerEl = document.querySelector('#question');
 const answerButtonsEl = document.querySelector('#answer-btns');
+const answerButtons = document.querySelectorAll('#answer-btns button')
 const startButtonEl = document.querySelector('#start-btn');
 const resultButtonEl = document.querySelector('#result-btn');
 const resetButtonEl = document.querySelector('#reset-btn')
+const resultsEl = document.querySelector('#results-container')
 
+// the quiz/questions
 const students = [
 	{
 		"name" : "Adi Dzocaj",
@@ -23,6 +40,7 @@ const students = [
 		"name" : "Benjamin Benson",
 		"image": "images/benjamin-benson.jpg",
 	},
+	/*
 	{
 		"name" : "Benjamin Tsubarah",
 		"image": "images/benjamin-tsubarah.jpg",
@@ -51,7 +69,6 @@ const students = [
 		"name" : "Emma Käck",
 		"image": "images/emma-kack.jpg",
 	},
-	/*
 	{
 		"name" : "Eric Ståhl",
 		"image": "images/eric-stahl.jpg",
@@ -166,86 +183,133 @@ const students = [
 	},
 	*/
 ];
-const newStudents = students
+const quiz = students
 
-let answers = [];
+// randomize/shuffle variable
+let randomizer;
+
+// correct answer variable
+let answer;
+
+// correct answers and guesses variables
 let score = 0;
+let guesses = 0;
 
+// used questions pushed to usedQuiz
+let usedQuiz = [];
 
-// Functions
-
-// shuffle newstudents array
-const randomizer = () => Math.floor(Math.random() * newStudents.length);
-const getRandom = () => newStudents[randomizer()];
-const currentQuiz = getRandom(answers)
-
-// push the shuffled array to answers
-const shuffling = () => {
-	for (let i = 0; i < students.length; i++) {
-		answers.push(getRandom(newStudents))
-	}
+// shuffle function
+const shuffling = (array) => {
+	for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
 
-const startGame = () => {
+// adds/removes class hide
+const hide = () => {
 	startButtonEl.classList.add('hide')
 	quizContainerEl.classList.remove('hide')
 	resultButtonEl.classList.remove('hide')
 	resetButtonEl.classList.remove('hide')
-	shuffling();
+}
+const show = () => {
+	startButtonEl.classList.remove('hide')
+	quizContainerEl.classList.add('hide')
+	resultButtonEl.classList.add('hide')
+	resetButtonEl.classList.add('hide')
+}
 
-	// filter out duplicates from answers array
-	const filtering = answers.filter((answer, index) => {
-		return answers.indexOf(answer) === index;
-	});
-	// target all filtered arrays name
-	const mapping = filtering.map(answer => answer.name)
+// score and guesses resetter
+const resetScore = () => {
+	score = 0;
+	guesses = 0;
+}
 
-	// set innertext to all the buttons
-	let answerButtons = document.querySelectorAll('#answer-btns button')
+// start the game (show the quiz)
+const startGame = () => {
+	hide();
+
+	for (let i = 0; i <= quiz.length; i++) {
+		
+	}
+	// shuffle newStudents
+	shuffling(quiz);
+
+	// set innertext to all the buttons and set up quiz image
 	answerButtons.forEach((btn, i) => {
-        btn.innerText = mapping[i]
-		questionContainerEl.firstElementChild.setAttribute('src', answers[i].image);
+		btn.innerText = quiz[i].name;
+		randomizer = Math.floor(Math.random() * 3);
+		questionContainerEl.firstElementChild.setAttribute('src', quiz[randomizer].image);
+		answer = quiz[randomizer]
     });
 
-	console.log(mapping)
+	answerButtons.forEach( (e) => {
+		e.classList.remove('correct')
+		e.classList.remove('wrong')
+	})
 }
-
-// show results BUT NEEDS TO BE FIXED!!
-const showResults = () => {
-	highscoreEl.innerHTML = `Score 1/${newStudents.length}`
-}
-
-
-// Event listener
 startButtonEl.addEventListener('click', (startGame));
-resultButtonEl.addEventListener('click', (showResults));
 
-// restart the game BUT NEEDS TO BE FIXED!!
-resetButtonEl.addEventListener('click', () => {
-	startGame(currentQuiz);
-	console.log('Game has been resetted')
-})
 
-// answer by clicking on the buttons, cannot get the correct result AND NEEDS TO BE FIXED!!
+// answer buttons to check if button is correct or not
 answerButtonsEl.addEventListener('click', e => {
-	if (e.target.value == answers.name) {
-		score++;
-        console.log(`Correct!`)
+	// check if target is a button
+	if (e.target.tagName === 'BUTTON') {
+		guesses++;
 
-    } else {
-		console.log(`WRONG`)
-    }
+		// check if button is correct answer
+		if (e.target.innerText == answer.name) {
+			score++;
+			e.target.classList.add('correct');
+			console.log(`Correct!`);
+
+			// filter and push away used quiz
+			usedQuiz.push(answer);
+			quiz.filter( (e) => {
+				e !== answer
+			});
+
+			// makes the game run until no questions left
+			if (usedQuiz.length <= students.length) {
+				startGame();
+
+				// show final result window + play again button after all questions
+				if (usedQuiz.length === students.length) {
+					resetScore()
+					usedQuiz = [];
+					show();
+					startButtonEl.innerText = 'Play again'
+					resultsEl.classList.remove('hide')
+				}
+			}
+
+			// if wrong answer
+		} else {
+			e.target.classList.add('wrong');
+			console.log(`WRONG`);
+		}
+
+		// if target is not a button
+	} else {
+		console.log("NOT A BUTTON");
+	}
 });
 
 
-/**
- * to do list!
- * 
- * make the shuffle better, correct answer appear at same spot plenty of times
- * 
- * fix the answer button so that you can answer correct and move on to next question
- * 
- * fix the result, so that it updates automatically and make it toogleable
- * 
- * fix the reset, so it resets the game to 0 and shows a new question
- */
+// reset/restart the game event
+resetButtonEl.addEventListener('click', () => {
+	resetScore()
+	usedQuiz = [];
+	show();
+	startButtonEl.innerText = 'Start'
+	alert('Game has been resetted!');
+});
+
+// show results (make the game end and show result container!)
+const showResults = () => {
+	highscoreEl.innerHTML = `Score ${score}/${quiz.length} and ${guesses} tries`
+}
+resultButtonEl.addEventListener('click', (showResults));

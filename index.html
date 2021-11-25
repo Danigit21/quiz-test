@@ -12,26 +12,37 @@
 </head>
 <body>
     <div class="container">
-        <!-- Quiz section starts here! -->
-        <div id="quiz-container" class ="hide">
-            <!-- Quiz heading -->
-            <div class="quiz-title">Who is this?</div>
+        <!-- Final result container -->
+        <div class="results-container hide">
+            <li></li>
+            <li></li>
+            <li></li>
             <!-- Results -->
             <div id="highscore"></div>
+        </div>
+
+        <!-- Quiz section starts here! -->
+        <div id="quiz-container" class ="hide">
+
+            <!-- Quiz heading -->
+            <div class="quiz-title">Who is this?</div>
+
             <!-- Image to guess -->
             <div id="question" class="quiz-image">
                 <img src="" alt="images">
             </div>
+
             <!-- Answer buttons -->
             <div id="answer-btns" class="answer-container">
-                <button class="bthStyle"></button>
+                <button class="btnStyle"></button>
                 <button class="btnStyle"></button>
                 <button class="btnStyle"></button>
                 <button class="btnStyle"></button>
             </div>
         </div>
+
         <!-- Important buttons -->
-        <div class="controls">
+        <div class="control-btns">
             <button id="start-btn" class="start-btn">Start</button>
             <button id="result-btn" class="result-btn hide">Result</button>
             <button id="reset-btn" class="reset-btn hide">Reset</button>

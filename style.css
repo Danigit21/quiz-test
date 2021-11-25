@@ -37,7 +37,7 @@ body {
 }
 
 .quiz-image img {
-    width: 50%;
+    width: 70%;
 }
 
 /* Buttons */
@@ -46,7 +46,7 @@ body {
     flex-direction: column;
 }
 
-.answer-container button {
+.btnStyle {
     margin: 8px;
     border-radius: 15px;
     cursor: pointer;
@@ -55,18 +55,26 @@ body {
     border: 3px solid black;
 }
 
-.answer-container button:hover {
+.btnStyle:hover {
     transition: 0.3s;
     border-color: blue;
 }
 
-.controls {
+.correct {
+    background-color: green;
+}
+
+.wrong {
+    background-color: red;
+}
+
+.control-btns {
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
 
-.controls button {
+.control-btns button {
     width: 100px;
     padding: 5px;
     border-radius: 15px;
@@ -76,7 +84,7 @@ body {
     border: 3px solid black;
 }
 
-.controls button:hover {
+.control-btns button:hover {
     transition: 0.5s;
     border-color: red;
 }
