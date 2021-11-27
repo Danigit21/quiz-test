@@ -28,7 +28,6 @@ const students = [
 		"name" : "Benjamin Benson",
 		"image": "images/benjamin-benson.jpg",
 	},
-	/*
 	{
 		"name" : "Benjamin Tsubarah",
 		"image": "images/benjamin-tsubarah.jpg",
@@ -93,6 +92,7 @@ const students = [
 		"name" : "Johan Ranestam",
 		"image": "images/johan-ranestam.jpg",
 	},
+	/*
 	{
 		"name" : "Johanna Bäckström",
 		"image": "images/johanna-backstrom.jpg",
