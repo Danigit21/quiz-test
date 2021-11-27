@@ -231,7 +231,7 @@ const autoScore = () => {
 		scoreEl.innerHTML += `<p>You got'em all! 👍</p>`
 	}
 
-	if (guesses >= quiz.length + 5 && quiz.length === score) {
+	if (guesses >= quiz.length + 10 && quiz.length === score) {
 		scoreEl.innerHTML += `<p>Too many guesses but you made it atleast.. 🤨</p>`
 	} else if (guesses <= 3 || score < 2) {
 		scoreEl.innerHTML += `<p>Try harder 🥱</p>`
