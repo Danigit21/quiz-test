@@ -1,17 +1,4 @@
-/**
- * Quiz Game's to do list!
- * 
- * fix the show result in the end
- * 
- * fix the design
- * 
- * dont show the same picture/quiz more than once
- * 
- * 
- */
-
-
-// dom targets
+// targets
 const quizContainerEl = document.querySelector('#quiz-container');
 const highscoreEl = document.querySelector('#highscore');
 const questionContainerEl = document.querySelector('#question');
@@ -20,7 +7,8 @@ const answerButtons = document.querySelectorAll('#answer-btns button')
 const startButtonEl = document.querySelector('#start-btn');
 const resultButtonEl = document.querySelector('#result-btn');
 const resetButtonEl = document.querySelector('#reset-btn')
-const resultsEl = document.querySelector('#results-container')
+const resultsEl = document.querySelector('#results')
+const scoreEl = document.querySelector('.score')
 
 // the quiz/questions
 const students = [
@@ -208,7 +196,7 @@ const shuffling = (array) => {
     }
 }
 
-// adds/removes class hide
+// adds/removes class hide, toggle instead?
 const hide = () => {
 	startButtonEl.classList.add('hide')
 	quizContainerEl.classList.remove('hide')
@@ -228,13 +216,33 @@ const resetScore = () => {
 	guesses = 0;
 }
 
+// result window
+const autoScore = () => {
+	scoreEl.innerHTML = `
+	<h1>Your results are</h1>
+	<li>There are ${quiz.length} questions.</li>
+	<li>You guessed ${guesses} time(s).</li>
+	<li>${score} correct answer(s).</li>
+	`
+
+	if (quiz.length === score && guesses <= quiz.length) {
+		scoreEl.innerHTML += `<p>You did it!🎉 ${score}/${quiz.length} with ONLY ${guesses} guesses!</p>`
+	} else if (quiz.length === score) {
+		scoreEl.innerHTML += `<p>You got'em all! 👍</p>`
+	}
+
+	if (guesses >= quiz.length + 5 && quiz.length === score) {
+		scoreEl.innerHTML += `<p>Too many guesses but you made it atleast.. 🤨</p>`
+	} else if (guesses <= 3 || score < 2) {
+		scoreEl.innerHTML += `<p>Try harder 🥱</p>`
+	}
+}
+
 // start the game (show the quiz)
 const startGame = () => {
 	hide();
+	resultsEl.classList.add('hide')
 
-	for (let i = 0; i <= quiz.length; i++) {
-		
-	}
 	// shuffle newStudents
 	shuffling(quiz);
 
@@ -251,6 +259,7 @@ const startGame = () => {
 		e.classList.remove('wrong')
 	})
 }
+
 startButtonEl.addEventListener('click', (startGame));
 
 
@@ -268,9 +277,7 @@ answerButtonsEl.addEventListener('click', e => {
 
 			// filter and push away used quiz
 			usedQuiz.push(answer);
-			quiz.filter( (e) => {
-				e !== answer
-			});
+			quiz.filter( (e) => e !== answer);
 
 			// makes the game run until no questions left
 			if (usedQuiz.length <= students.length) {
@@ -278,11 +285,12 @@ answerButtonsEl.addEventListener('click', e => {
 
 				// show final result window + play again button after all questions
 				if (usedQuiz.length === students.length) {
-					resetScore()
-					usedQuiz = [];
 					show();
+					autoScore();
 					startButtonEl.innerText = 'Play again'
 					resultsEl.classList.remove('hide')
+					resetScore();
+					usedQuiz = [];
 				}
 			}
 
@@ -310,6 +318,11 @@ resetButtonEl.addEventListener('click', () => {
 
 // show results (make the game end and show result container!)
 const showResults = () => {
-	highscoreEl.innerHTML = `Score ${score}/${quiz.length} and ${guesses} tries`
+	show();
+	autoScore();
+	startButtonEl.innerText = 'Play again'
+	resultsEl.classList.remove('hide')
+	resetScore();
+	usedQuiz = [];
 }
 resultButtonEl.addEventListener('click', (showResults));
